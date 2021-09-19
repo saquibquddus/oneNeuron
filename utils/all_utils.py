@@ -8,6 +8,14 @@ import os
 plt.style.use("fivethirtyeight") # THIS IS STYLE OF GRAPHS
 
 def prepare_data(df):
+  """It is used   separate the dependent feature and independent features.
+
+  Args:
+      df (pd.Dataframe): It is the panda Dataframe.
+
+  Returns:
+      tuple: It returns the tuple  of dedpendent and independent variable.
+  """
   X = df.drop("y", axis=1)
 
   y = df["y"]
@@ -15,12 +23,25 @@ def prepare_data(df):
   return X, y
 
 def save_model(model, filename):
+  """This saves the trained model.
+
+  Args:
+      model (python object): trained model
+      filename (str): Path to save the trained model
+  """
   model_dir = "models"
   os.makedirs(model_dir, exist_ok=True) # ONLY CREATE IF MODEL_DIR DOESN"T EXISTS
   filePath = os.path.join(model_dir, filename) # model/filename
   joblib.dump(model, filePath)
 
 def save_plot(df, file_name, model):
+  """This function plot the base plot and plot the decision region and save those plot.
+
+  :param df: this is dataFrame.
+  :file_name: It's a path to save plot.
+  :model: Trained model
+  
+  """
   def _create_base_plot(df):
     df.plot(kind="scatter", x="x1", y="x2", c="y", s=100, cmap="winter")
     plt.axhline(y=0, color="black", linestyle="--", linewidth=1)
